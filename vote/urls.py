@@ -19,6 +19,7 @@ from django.urls import path, include
 from graphene_django.views import GraphQLView
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 from polls import views
 
@@ -28,6 +29,8 @@ urlpatterns = [
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),
     url(r'^schema/$', schema_view),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
     path('admin/', admin.site.urls),
     path('', include('polls.urls')),
 ]

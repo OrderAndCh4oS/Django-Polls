@@ -46,9 +46,9 @@ class VoteCountSerializer(serializers.ModelSerializer):
         fields = ('yes', 'not_sure', 'no')
 
 class QuestionSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    owner = serializers.ReadOnlyField(source='owner.username', read_only=True)
     asked_at = serializers.ReadOnlyField()
-    category = serializers.CharField(source='category.name')
+    category = serializers.SlugRelatedField(slug_field="name", queryset=Category.objects.all())
     vote_count = VoteCountSerializer(many=False, read_only=True)
 
     class Meta:

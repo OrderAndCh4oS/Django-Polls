@@ -6,4 +6,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        return obj.owner == request.user
+        try:
+            return obj.owner == request.user
+        except AttributeError:
+            return obj == request.user

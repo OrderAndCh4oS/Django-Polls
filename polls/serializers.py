@@ -25,19 +25,17 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    questions = serializers.HyperlinkedRelatedField(many=True, view_name='question-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'questions')
+        fields = ('url', 'username', 'email')
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    questions = serializers.HyperlinkedRelatedField(many=True, view_name='question-detail', read_only=True)
 
     class Meta:
         model = Category
-        fields = ('url', 'id', 'name', 'questions')
+        fields = ('name',)
 
 
 class VoteCountSerializer(serializers.ModelSerializer):

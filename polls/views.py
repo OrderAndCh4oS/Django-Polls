@@ -32,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
@@ -43,7 +43,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
 
     queryset = Question.objects.all().order_by('-id')
     serializer_class = QuestionSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     search_fields = ('question_text',)
     filter_fields = ('category', 'category__name')
@@ -57,13 +57,13 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all().order_by('name')
     serializer_class = CategorySerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 class VoteCountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = VoteCount.objects.all()
     serializer_class = VoteCountSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 class VoteViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin,
@@ -73,7 +73,7 @@ class VoteViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.Lis
 
     queryset = Vote.objects.all().order_by('-id')
     serializer_class = VoteSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

@@ -25,14 +25,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = User
         fields = ('url', 'username', 'email')
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
         fields = ('name',)
@@ -42,6 +40,7 @@ class VoteCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = VoteCount
         fields = ('yes', 'not_sure', 'no')
+
 
 class QuestionSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username', read_only=True)

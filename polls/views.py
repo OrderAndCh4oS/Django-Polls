@@ -46,7 +46,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     search_fields = ('question_text',)
-    filter_fields = ('category', 'category__name')
+    filter_fields = ('category__name',)
 
     def perform_create(self, serializer):
         vote_count = VoteCount()

@@ -72,12 +72,12 @@ class VoteSerializer(serializers.ModelSerializer):
 
     def update_vote_count(self, next_vote, previous_vote, vote_count):
         if previous_vote:
-            last_choice = previous_vote.choice
-            if last_choice == 'y':
+            previous_choice = previous_vote.choice
+            if previous_choice == 'y':
                 vote_count.yes -= 1
-            elif last_choice == '?':
+            elif previous_choice == '?':
                 vote_count.not_sure -= 1
-            elif last_choice == 'n':
+            elif previous_choice == 'n':
                 vote_count.no -= 1
         if next_vote == 'y':
             vote_count.yes += 1
